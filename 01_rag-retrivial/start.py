@@ -110,3 +110,11 @@ nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 
+text = "Sailing in Crotaia between Split and Zadar is Fantastic. This is cool."
+
+# tokenize into sentences
+#a sentence is defined when there is a "." and an empty space after
+print(nltk.sent_tokenize(text))
+
+# tokenize into words
+print(nltk.word_tokenize(text))
