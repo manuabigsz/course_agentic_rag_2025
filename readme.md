@@ -25,7 +25,7 @@ Repositório baseado no curso **"RAG, AI Agents and Generative AI with Python an
    ```bash
    git clone https://github.com/seu-usuario/agentic-rag-openai-2025.git
    cd agentic-rag-openai-2025
-````
+    ````
 
 2. Crie um ambiente virtual e instale as dependências:
 
