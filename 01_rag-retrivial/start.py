@@ -33,7 +33,27 @@ def pre_process(text):
 
     return [word for word in tokens if word.isalnum()]
 
-[''.join(pre_process(doc)) for doc in documents]
+preprocessed_docs = [''.join(pre_process(doc)) for doc in documents]
 
         
-        
+## TF-IDF
+vectorizer = TfidfVectorizer()
+## regardless of size, they will have 360 ​​dimensions 
+
+# fit and transforme the pre preprocessed docs
+tfidf_matrix = vectorizer.fit_transform(preprocessed_docs)
+print(f"the shape of tf-ifdf matrix id {tfidf_matrix}")
+print(f"the lenght of documents is {len(documents)}")
+
+## query the index
+query = "croatia sailing"
+query_vectorizer = vectorizer.transform([query])
+
+## measures or helps to measure the distances (cosines) between a query and dimensions
+## sort the documents by similaritie to the query
+similarities = cosine_similarity(tfidf_matrix, query_vectorizer)
+sorted_similarities = list(enumerate(similarities))
+sorted(sorted_similarities.sort(key=lambda x: x[1]))
+
+
+
