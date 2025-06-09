@@ -55,5 +55,36 @@ similarities = cosine_similarity(tfidf_matrix, query_vectorizer)
 sorted_similarities = list(enumerate(similarities))
 sorted(sorted_similarities.sort(key=lambda x: x[1]))
 
+# function to search with tf-idf
+def search_tfidf(query, vectorizer,tfidf_matrix):
+    query_vec = vectorizer.transform([query])
+    
+    similarities = cosine_similarity(tfidf_matrix, query_vec).flatten()
+    
+    #pair each document index with its siilartiry score:
+    sorted_similarities = list(enumerate(similarities))
+    
+    results = sorted(sorted_similarities, key= lambda x:x[1], reverse=True)
+    
+    return results
 
+search_similarities = search_tfidf(query, vectorizer, tfidf_matrix)
 
+print("top 10 docments by similarity score for query {query}:")
+for doc_index, score in search_similarities[:10]:
+    print(f"Document {doc_index + 1}: {documents[doc_index]}")
+    
+    
+    
+#############################
+#  boolean retrieval model  # 
+#############################
+#      and - or - not       #
+#############################
+# steps:
+# 1. tokenization
+# 2. normalization - convertng to lower case, remove pontuantion, etc
+# 3. inverted index created - mapping terms
+# 4. query processing - retrivial of matching documents
+# pros: its simplicity and precision
+# limitations: no ranking, binary matching (no middleground), complex queries
