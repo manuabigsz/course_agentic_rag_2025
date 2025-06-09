@@ -45,3 +45,45 @@ print(text)
 text_processed = pre_process2(text)
 print(text_processed)
 
+if(os.path.exists("index_dir")):
+    shutil.rmtree("index_dir")
+os.mkdir("index_dir")
+
+schema = Schema(title=ID(stored = True, unique=True,), content = TEXT(stored = True))
+
+index = create_in("index_dir", schema)
+
+# add doc by writing to the index
+writer = index.writer()
+for i, doc in enumerate(documents):
+    writer.add_document(title = str(i), content=pre_process2(doc))
+writer.commit()
+
+#query using boleean
+query = "croacia NOT sailing"
+
+# queryparser that targets the content field
+parser = QueryParser("content", schema = index.schema)
+
+#parser the users query
+parsed_query = parser.parse(query)
+print(f"parsed query: {parsed_query}")
+with index.searcher() as searcher:
+    results = searcher.search(parsed_query)
+    print([[hit["title"], hit['content']] for hit in results])
+
+#build function for boolean search
+def boolean_search(query, index):
+    parser = QueryParser("content", schema = index.schema)
+
+    parsed_query = parser.parse(query)
+    print(f"parsed query: {parsed_query}")
+    with index.searcher() as searcher:
+        results = searcher.search(parsed_query)
+     
+        return [[hit["title"], hit['content']] for hit in results]
+
+
+boolean_search(query, index)
+
+
