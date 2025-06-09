@@ -76,15 +76,3 @@ for doc_index, score in search_similarities[:10]:
     
     
     
-#############################
-#  boolean retrieval model  # 
-#############################
-#      and - or - not       #
-#############################
-# steps:
-# 1. tokenization
-# 2. normalization - convertng to lower case, remove pontuantion, etc
-# 3. inverted index created - mapping terms
-# 4. query processing - retrivial of matching documents
-# pros: its simplicity and precision
-# limitations: no ranking, binary matching (no middleground), complex queries
