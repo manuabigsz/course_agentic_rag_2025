@@ -53,7 +53,7 @@ query_vectorizer = vectorizer.transform([query])
 ## sort the documents by similaritie to the query
 similarities = cosine_similarity(tfidf_matrix, query_vectorizer)
 sorted_similarities = list(enumerate(similarities))
-sorted(sorted_similarities.sort(key=lambda x: x[1]))
+sorted_similarities = sorted(sorted_similarities, key=lambda x: x[1])
 
 # function to search with tf-idf
 def search_tfidf(query, vectorizer,tfidf_matrix):
@@ -64,7 +64,7 @@ def search_tfidf(query, vectorizer,tfidf_matrix):
     #pair each document index with its siilartiry score:
     sorted_similarities = list(enumerate(similarities))
     
-    results = sorted(sorted_similarities, key= lambda x:x[1], reverse=True)
+    results = sorted(sorted_similarities, key=lambda x: x[1])
     
     return results
 
